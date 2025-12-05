@@ -43,10 +43,6 @@ export default function Review() {
     setReview(reviewList.find((r) => r.id === current));
   }, [current]);
 
-  if (!review) {
-    return <strong>No Review Found</strong>;
-  }
-
   function previous() {
     if (current <= 1) {
       return;

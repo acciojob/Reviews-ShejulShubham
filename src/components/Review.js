@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
-
-const reviewList = [
+import React, { useState } from "react";
+const reviews = [
   {
     id: 1,
     name: "susan smith",
     job: "web developer",
     image:
       "https://res.cloudinary.com/diqqf3eq2/image/upload/v1586883334/person-1_rfzshl.jpg",
-    text: "I'm baby meggings twee health goth +1. Bicycle rights tumeric chartreuse before they sold out chambray pop-up. Shaman humblebrag pickled coloring book salvia hoodie, cold-pressed four dollar toast everyday carry",
+    text: "I'm baby meggings twee health goth +1. Bicycle rights tumeric chartreuse before they sold out chambray pop-up...",
   },
   {
     id: 2,
@@ -15,7 +14,7 @@ const reviewList = [
     job: "web designer",
     image:
       "https://res.cloudinary.com/diqqf3eq2/image/upload/v1586883409/person-2_np9x5l.jpg",
-    text: "Helvetica artisan kinfolk thundercats lumbersexual blue bottle. Disrupt glossier gastropub deep v vice franzen hell of brooklyn twee enamel pin fashion axe.photo booth jean shorts artisan narwhal.",
+    text: "Helvetica artisan kinfolk thundercats lumbersexual blue bottle. Disrupt glossier gastropub deep v vice franzen...",
   },
   {
     id: 3,
@@ -23,7 +22,7 @@ const reviewList = [
     job: "intern",
     image:
       "https://res.cloudinary.com/diqqf3eq2/image/upload/v1586883417/person-3_ipa0mj.jpg",
-    text: "Sriracha literally flexitarian irony, vape marfa unicorn. Glossier tattooed 8-bit, fixie waistcoat offal activated charcoal slow-carb marfa hell of pabst raclette post-ironic jianbing swag.",
+    text: "Sriracha literally flexitarian irony, vape marfa unicorn. Glossier tattooed 8-bit, fixie waistcoat...",
   },
   {
     id: 4,
@@ -31,72 +30,56 @@ const reviewList = [
     job: "the boss",
     image:
       "https://res.cloudinary.com/diqqf3eq2/image/upload/v1586883423/person-4_t9nxjt.jpg",
-    text: "Edison bulb put a bird on it humblebrag, marfa pok pok heirloom fashion axe cray stumptown venmo actually seitan. VHS farm-to-table schlitz, edison bulb pop-up 3 wolf moon tote bag street art shabby chic. ",
+    text: "Edison bulb put a bird on it humblebrag, marfa pok pok heirloom fashion axe cray stumptown venmo actually seitan...",
   },
 ];
 
 export default function Review() {
-  // TODO: Complete review assignment
-  const [current, setCurrent] = useState(1);
-  const { id, name, job, image, text } = reviewList.find(
-    (r) => r.id === current
-  );
+  const [index, setIndex] = useState(0);
+  const { id, name, job, image, text } = reviews[index];
 
   function prevReview() {
-    if (current <= 1) {
-      return;
-    }
-
-    setCurrent((prev) => prev - 1);
+    setIndex((prevIndex) => (prevIndex - 1 + reviews.length) % reviews.length);
   }
 
   function nextReview() {
-    if (current >= reviewList.length - 1) {
-      return;
-    }
-
-    setCurrent((prev) => prev + 1);
+    setIndex((prevIndex) => (prevIndex + 1) % reviews.length);
   }
 
   function randomReview() {
-    const random = Math.floor(Math.random() * reviewList.length) + 1;
-    setCurrent(random);
+    let randomIndex = Math.floor(Math.random() * reviews.length);
+    if (randomIndex === index) {
+      randomIndex = (randomIndex + 1) % reviews.length;
+    }
+    setIndex(randomIndex);
   }
 
   return (
-    <>
-      <h1 id="review-heading">Out Reviews</h1>
-      <div className="review">
-        <div className="img-container">
-          <img
-            style={{ width: "100px", height: "100px" }}
-            src={image}
-            alt={name}
-            className="person-img"
-          />
-        </div>
+    <article className="review">
+      <div className="img-container">
+        <img src={image} alt={name} className="person-img"></img>
+      </div>
 
-        <h4 className="author" id={`author-${id}`}>
-          {name}
-        </h4>
+      <h4 className="author" id={`author-${id}`}>
+        {name}
+      </h4>
 
-        <p className="job">{job}</p>
+      <p className="job">{job}</p>
 
-        <p className="info">{text}</p>
+      <p className="info">{text}</p>
 
-        <div className="button-container">
-          <button className="prev-btn" onClick={prevReview}>
-            &#8592;
-          </button>
-          <button className="next-btn" onClick={nextReview}>
-            &#8594;
-          </button>
-        </div>
-
-        <button className="random-btn" onClick={randomReview}>
-          surprise me
+      <div className="button-container">
+        <button className="prev-btn" onClick={prevReview}>
+          Previous
+        </button>
+        <button className="next-btn" onClick={nextReview}>
+          Next
         </button>
       </div>
-    </>
+
+      <button className="random-btn" onClick={randomReview}>
+        surprise me
+      </button>
+    </article>
   );
 }

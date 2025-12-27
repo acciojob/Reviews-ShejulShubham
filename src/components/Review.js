@@ -64,36 +64,39 @@ export default function Review() {
   }
 
   return (
-    <div className="review">
-      <div className="img-container">
-        <img
-          style={{ width: "100px", height: "100px" }}
-          src={image}
-          alt={name}
-          className="person-img"
-        />
-      </div>
+    <>
+      <h1 id="review-heading">Out Reviews</h1>
+      <div className="review">
+        <div className="img-container">
+          <img
+            style={{ width: "100px", height: "100px" }}
+            src={image}
+            alt={name}
+            className="person-img"
+          />
+        </div>
 
-      <h4 className="author" id={`author-${id}`}>
-        {name}
-      </h4>
+        <h4 className="author" id={`author-${id}`}>
+          {name}
+        </h4>
 
-      <p className="job">{job}</p>
+        <p className="job">{job}</p>
 
-      <p className="info">{text}</p>
+        <p className="info">{text}</p>
 
-      <div className="button-container">
-        <button className="prev-btn" onClick={prevReview}>
-          &#8592;
+        <div className="button-container">
+          <button className="prev-btn" onClick={prevReview}>
+            &#8592;
+          </button>
+          <button className="next-btn" onClick={nextReview}>
+            &#8594;
+          </button>
+        </div>
+
+        <button className="random-btn" onClick={randomReview}>
+          surprise me
         </button>
-        <button className="next-btn" onClick={nextReview}>
-          &#8594;
-        </button>
       </div>
-
-      <button className="random-btn" onClick={randomReview}>
-        surprise me
-      </button>
-    </div>
+    </>
   );
 }
